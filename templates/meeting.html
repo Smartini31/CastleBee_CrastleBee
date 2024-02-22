@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>{{meeting.title}}</h1>
+  <small>Created by {{meeting.user}} on {{meeting.day}}</small>
+  <hr>
+  <div>
+    {{meeting.title | safe}}
+  </div>
+{% endblock %}

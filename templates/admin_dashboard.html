@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Admin Dashboard</h1>
+<form method="GET" action="/admin_dashboard">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.user_id.label(class="form-control-label") }}
+        {{ form.user_id(class="form-control", id="user") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Charger Informations</button>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>Email</th>
+        <th>Titre</th>
+        <th>Type</th>
+        <th>Début</th>
+        <th>Fin</th>
+    </tr>
+    {% for event in calendar %}
+    <tr>
+        <td>{{event.user}}</td>
+        <td>{{event.title}}</td>
+        <td>{{event.type}}</td>
+        <td>{{event.start}}</td>
+        <td>{{event.end}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<div id="calendar"></div>
+{% endblock %}

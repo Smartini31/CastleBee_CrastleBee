@@ -1,0 +1,45 @@
+    x{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Dashboard <small> Welcome {{session.email}}</small></h1>
+<a class="btn btn-success" href="/add_events"> Demande Congés ou Heures Supplémentaires</a>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Type</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Statut</th>
+        <th>Supprimer</th>
+    </tr>
+    {% for event in list %}
+    <tr>
+        <td>{{event.id}}</td>
+        <td>{{event.title}}</td>
+        <td>{{event.type}}</td>
+        <td>{{event.start}}</td>
+        <td>{{event.end}}</td>
+        {% if event.is_processed == False %}
+            <td> En attente de Gestion </td>
+            <td> 
+                <form method="POST" action="{{ url_for('remove_event', event_id=event.id) }}">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+            </td>
+        {% else %}
+            {% if event.is_valid == True %}
+                <td> Accepté </td>
+                <td></td>
+            {% else %}
+                <td> Refusé </td>
+                <td></td>
+            {% endif %}
+        {% endif %}
+
+    </tr>
+    {% endfor %}
+</table>
+<div id="calendar"></div>
+{% endblock %}
